@@ -1,11 +1,11 @@
 <script lang="ts">
-    import { getRandomHealth, Player } from "$lib/data";
+    import { getRandomHealth, Hobby, Player, Profession } from "$lib/data";
     import { fade } from "svelte/transition";
     import { createContextMenu, melt } from "@melt-ui/svelte";
     import { Direction, type PlayerProperties } from "$lib/internal/gameState";
     import { getCtx } from "$lib/game";
     import HideableText from "./HideableText.svelte";
-    import { Clipboard } from "lucide-svelte";
+    import { Clipboard, Key } from "lucide-svelte";
 
     export let players: Player[];
 
@@ -111,8 +111,16 @@
         }
     }
 
-    function appendPlayerProp<T extends PlayerProperties>(currentColumn: T | null, toPlayerIdx: number, fromPlayerIdx: number) {
+    function appendPlayerProp<T extends PlayerProperties>(key: T | null, toPlayerIdx: number, fromPlayerIdx: number) {
+        if (key && (key === "hobbies" || key === "professions" || key === "items") && toPlayerIdx > 0 && fromPlayerIdx > 0) {
+            methods.appendPlayerProp(key, toPlayerIdx, fromPlayerIdx);
+        }
+    }
 
+    function stealPlayerProp<T extends PlayerProperties>(key: T | null, toPlayerIdx: number, fromPlayerIdx: number) {
+        if (key && key === "items" && toPlayerIdx > 0 && fromPlayerIdx > 0) {
+            methods.stealPlayerProp(key, toPlayerIdx, fromPlayerIdx);
+        }
     }
 
     function copyPlayerProp<T extends PlayerProperties>(key: T | null, playerIdx: number) {
@@ -244,7 +252,7 @@
                     <button 
                         class="item" 
                         use:melt={$itemB}
-                        on:click={() => swapProp(currentColumn, currentPlayerIdx, nameIdx)}
+                        on:click={() => stealPlayerProp(currentColumn, nameIdx, currentPlayerIdx)}
                     >
                         {name}
                     </button>

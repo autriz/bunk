@@ -27,9 +27,15 @@ export class Profession {
     public profession: string;
     public experience: number;
 
-    constructor() {
-        this.profession = getRandomData("professions");
-        this.experience = getRandomNumber(0, 240);
+    constructor(profession?: string, experience?: number) {
+        if (profession && experience) {
+            this.profession = profession;
+            this.experience = experience;
+        }
+        else {
+            this.profession = getRandomData("professions");
+            this.experience = getRandomNumber(0, 240);
+        }
     }
 
     regenerate() {
@@ -46,9 +52,15 @@ export class Hobby {
     public hobby: string;
     public experience: number;
 
-    constructor() {
-        this.hobby = getRandomData("hobbies");
-        this.experience = getRandomNumber(0, 240);
+    constructor(hobby?: string, experience?: number) {
+        if (hobby && experience) {
+            this.hobby = hobby;
+            this.experience = experience;
+        }
+        else {
+            this.hobby = getRandomData("hobbies");
+            this.experience = getRandomNumber(0, 240);
+        }
     }
 
     regenerate() {

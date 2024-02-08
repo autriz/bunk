@@ -1,5 +1,5 @@
 import { writable, get } from "svelte/store";
-import { Player, generatePlayersArray, getRandomCatastrophe } from "$lib/data";
+import { Hobby, Player, Profession, generatePlayersArray, getRandomCatastrophe } from "$lib/data";
 
 type ExcludeMethods<T> = 
     { [K in keyof T as (T[K] extends Function ? never : K)]: T[K] }
@@ -56,6 +56,44 @@ export function createGameState() {
 
             for (let player of $players) {
                 player.regenerateByKey(key);
+            }
+
+            return $players;
+        })
+    }
+
+    function appendPlayerProp<T extends PlayerProperties>(key: T, toPlayerIdx: number, fromPlayerIdx: number) {
+        playersStore.update(($players) => {
+            if ($players === undefined) return $players;
+
+            let toPlayer = $players.at(toPlayerIdx);
+            let fromPlayer = $players.at(fromPlayerIdx);
+
+            if (toPlayer && fromPlayer) {
+                let fromProp = (fromPlayer.getByKey(key) as Profession[] | Hobby[] | string[])[0];
+                let toProp = toPlayer.getByKey(key) as Profession[] | Hobby[] | string[];
+
+                toPlayer.updateByKey(key, [...toProp, fromProp] as any);
+            }
+
+            return $players;
+        })
+    }
+
+    function stealPlayerProp<T extends PlayerProperties>(key: T, toPlayerIdx: number, fromPlayerIdx: number) {
+        playersStore.update(($players) => {
+            if ($players === undefined) return $players;
+
+            let toPlayer = $players.at(toPlayerIdx);
+            let fromPlayer = $players.at(fromPlayerIdx);
+
+            if (toPlayer && fromPlayer) {
+                let fromProps = fromPlayer.getByKey(key) as Profession[] | Hobby[] | string[];
+                let fromProp = fromProps[0];
+                let toProp = toPlayer.getByKey(key) as Profession[] | Hobby[] | string[];
+
+                fromPlayer.updateByKey(key, fromProps.slice(1) as any);
+                toPlayer.updateByKey(key, [...toProp, fromProp] as any);
             }
 
             return $players;
@@ -149,7 +187,9 @@ export function createGameState() {
             swapProps,
             regenerateProp,
             regeneratePlayerProp,
+            appendPlayerProp,
             updatePlayerProp,
+            stealPlayerProp,
             moveProp,
             start,
             restart
