@@ -225,7 +225,8 @@ export class Player {
     }
 
     toString() {
-        return `Пол, возраст, деторождение: ${this.generalInfo}\n` +
+        return this.name !== "" ? `Ник: ${this.name}\n` : `` +
+            `Пол, возраст, деторождение: ${this.generalInfo}\n` +
             `Телосложение: ${this.bodyType}\n` +
             `Профессия: ${this.professions.join("; ")}\n` +
             `Состояние здоровья: ${this.health}\n` +
