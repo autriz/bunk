@@ -1,5 +1,5 @@
 import { writable, get } from "svelte/store";
-import { Hobby, Player, Profession, generatePlayersArray, getRandomCatastrophe } from "$lib/data";
+import { Hobby, Player, Profession, generatePlayersArray, getBunkerHistory, getRandomCatastrophe } from "$lib/data";
 
 type ExcludeMethods<T> = 
     { [K in keyof T as (T[K] extends Function ? never : K)]: T[K] }
@@ -150,7 +150,7 @@ export function createGameState() {
     }
 
     function start(playerAmount: number, names?: string[]) {
-        catastropheStore.set(getRandomCatastrophe());
+        catastropheStore.set(getBunkerHistory());
 
         playersStore.update(($players) => {
             $players = Array.from(

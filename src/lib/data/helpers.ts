@@ -39,7 +39,7 @@ export function getBunkerHistory() {
     const items = Array.from({length: getRandomNumber(2, 5)}, (v) => getRandomItem());
     const threat = getRandomThreat();
 
-    return `${catastrophe}\n Бункер находится: ${place}\n Площадь бункера: ${size} м2.\n Время нахождения: ${time} месяцев.\n Провизия: ${food}\n Предметы: ${items.join(", ")}.\n Угроза: ${threat}`;
+    return `${catastrophe}\n Бункер находится: ${place}\n Площадь бункера: ${size} м2.\n Время нахождения: ${time} месяцев.\n Провизия: ${food}\n Предметы: ${items.join(", ")}.\n ${threat}`;
 }
 
 export function getRandomHealth(): string {
