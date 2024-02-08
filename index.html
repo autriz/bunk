@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<link rel="icon" href="./favicon.png" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		
+		<link href="./_app/immutable/assets/0.XSnvzDVz.css" rel="stylesheet">
+		<link href="./_app/immutable/assets/2.nYpj1Wi-.css" rel="stylesheet">
+		<link rel="modulepreload" href="./_app/immutable/entry/start.Wu8GZ0d9.js">
+		<link rel="modulepreload" href="./_app/immutable/chunks/entry.28BV9-wl.js">
+		<link rel="modulepreload" href="./_app/immutable/chunks/scheduler.fbrv7rja.js">
+		<link rel="modulepreload" href="./_app/immutable/chunks/index.siNsLpyV.js">
+		<link rel="modulepreload" href="./_app/immutable/entry/app.Iu_P80cz.js">
+		<link rel="modulepreload" href="./_app/immutable/chunks/index.ZPX5TGLq.js">
+		<link rel="modulepreload" href="./_app/immutable/nodes/0.vGJA5SqQ.js">
+		<link rel="modulepreload" href="./_app/immutable/nodes/2.eeZsM_xa.js"><title>Бункер</title><!-- HEAD_svelte-5fulw4_START --><meta name="description" content="Bunker"><!-- HEAD_svelte-5fulw4_END -->
+	</head>
+	<script>
+		function getColorMode() {
+			const persistedColorPreference = localStorage.getItem('color-theme');
+			const hasPersistedPreference = typeof persistedColorPreference === 'string';
+			// If the user has explicitly chosen light or dark,
+			// let's use it. Otherwise, this value will be null.
+			if (hasPersistedPreference) {
+			return persistedColorPreference;
+			}
+			// If they haven't been explicit, let's check the media
+			// query
+			const mql = matchMedia('(prefers-color-scheme: dark)');
+			const hasMediaQueryPreference = typeof mql.matches === 'boolean';
+			if (hasMediaQueryPreference) {
+			return mql.matches ? 'dark' : 'light';
+			}
+			// If they are using a browser/OS that doesn't support
+			// color themes, let's default to 'light'.
+			return 'light';
+		}
+		
+		let mode = getColorMode();
+        document.querySelector("html")?.classList.add(mode);
+	</script>
+	<body data-sveltekit-preload-data="hover">
+		<div style="display: contents">   <div class="min-w-fit w-screen min-h-fit h-screen bg-secondary text-secondary-foreground"><div class="w-full h-full flex flex-col justify-center items-center"><h1 class="text-4xl font-semibold mb-8" data-svelte-h="svelte-1b6s1uy">Бункер</h1> <p class="text-secondary-foreground/80 mb-4" data-svelte-h="svelte-y8ex90">WIP</p> <button class="dark:bg-slate-700 bg-slate-300 [&.active]:bg-primary/50 [&.active]:translate-y-1 [&.active]:shadow-[0_5px] [&.active]:shadow-slate-600 p-4 transition-all rounded-md shadow-[0_9px] shadow-slate-500 dark:hover:bg-primary/80 hover:bg-primary/80">Начать игру</button></div></div> <div data-portal="" data-melt-dialog-portalled=""></div> 
+			
+			<script>
+				{
+					__sveltekit_py6xh1 = {
+						base: new URL(".", location).pathname.slice(0, -1),
+						assets: "/sveltekit-github-pages"
+					};
+
+					const element = document.currentScript.parentElement;
+
+					const data = [null,null];
+
+					Promise.all([
+						import("./_app/immutable/entry/start.Wu8GZ0d9.js"),
+						import("./_app/immutable/entry/app.Iu_P80cz.js")
+					]).then(([kit, app]) => {
+						kit.start(app, element, {
+							node_ids: [0, 2],
+							data,
+							form: null,
+							error: null
+						});
+					});
+				}
+			</script>
+		</div>
+	</body>
+</html>
